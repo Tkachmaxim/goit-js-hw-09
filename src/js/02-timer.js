@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const settigsForFlatpickr = {
   enableTime: true,
@@ -37,7 +38,7 @@ refs.startButton.addEventListener('click', onStartButton);
 function onSelectData(value) {
   //validate choosen data
   if (value < Date.now()) {
-    alert('Please choose a date in the future');
+    Notify.failure('Please choose date in the future');
     refs.startButton.disabled = true;
     return;
   } else {
@@ -78,10 +79,10 @@ function startTimer() {
 }
 
 function markUp({ days, hours, minutes, seconds }) {
-  refs.days.textContent = addZero(days);
-  refs.hours.textContent = addZero(hours);
-  refs.minutes.textContent = addZero(minutes);
-  refs.second.textContent = addZero(seconds);
+  refs.days.textContent = addLeadingZero(days);
+  refs.hours.textContent = addLeadingZero(hours);
+  refs.minutes.textContent = addLeadingZero(minutes);
+  refs.second.textContent = addLeadingZero(seconds);
 }
 
 function convertMs(ms) {
@@ -103,57 +104,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function addZero(el) {
+function addLeadingZero(el) {
   return String(el).padStart(2, '0');
 }
 
-/* let calcTimeGlobal = Date.now();
-const startButton = document.querySelector('button[data-start]');
-
-startButton.addEventListener('click', startTimer);
-
-const flatpickerSettings = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 5,
-  onClose(selectedDates) {
-    onChoosedData(selectedDates[0]);
-  },
-};
-
-const instance = flatpickr('#datetime-picker', flatpickerSettings);
-
-function onChoosedData(date) {
-  const calcTime = date.getTime();
-  if (calcTime <= Date.now()) {
-    window.alert('Please choose a date in the future');
-    return;
-  }
-  calcTimeGlobal = calcTime;
-}
-
-function startTimer() {
-  if (calcTimeGlobal > Date.now()) {
-    setInterval(() => {
-      const restTime = convertMs(calcTimeGlobal - Date.now());
-      murkUp(restTime);
-    }, 1000);
-  }
-}
-
-function murkUp({ days, hours, minutes, seconds }) {
-  document.querySelector('[data-days]').textContent = addZero(days);
-  document.querySelector('[data-hours]').textContent = hours;
-  document.querySelector('[data-minutes]').textContent = minutes;
-  document.querySelector('[data-seconds]').textContent = seconds;
-}
-
-
-}
-
-function addZero(el) {
-  return String(el).padStart(2, '0');
-} 
-
- */
