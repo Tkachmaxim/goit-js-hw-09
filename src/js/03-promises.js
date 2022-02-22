@@ -1,19 +1,21 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+const refFormElements = document.querySelector('.form').elements;
+const refButton = document.querySelector('.form button');
+
 const refs = {
-  delay: document.querySelector('.form').delay,
-  step: document.querySelector('.form').step,
-  amount: document.querySelector('.form').amount,
-  submitButton: document.querySelector('.form button'),
+  delay: refFormElements.delay,
+  step: refFormElements.step,
+  amount: refFormElements.amount,
 };
 
-refs.submitButton.addEventListener('click', onCreateButton);
+refButton.addEventListener('click', onCreateButton);
 
 function onCreateButton(event) {
   event.preventDefault();
-  const amount = ~~refs.amount.value;
-  let delay = ~~refs.delay.value;
-  const step = ~~refs.step.value;
+  const amount = Number(refs.amount.value);
+  let delay = Number(refs.delay.value);
+  const step = Number(refs.step.value);
 
   for (let position = 1; position <= amount; position++) {
     createPromise(position, delay);
