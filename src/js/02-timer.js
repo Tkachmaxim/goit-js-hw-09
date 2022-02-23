@@ -52,6 +52,7 @@ function onSelectData(value) {
 function onStartButton() {
   //disable button
   refs.startButton.disabled = true;
+  refs.dateInput.disabled = true;
   instanceFlatpickr;
 
   //start timer
@@ -71,7 +72,6 @@ function startTimer() {
       console.log('time stop');
       clearInterval(timerId);
     } else {
-      refs.dateInput.disabled = true;
       //send rest time in frandly format to markUp
       markUp(convertMs(restTime));
     }
@@ -107,4 +107,3 @@ function convertMs(ms) {
 function addLeadingZero(el) {
   return String(el).padStart(2, '0');
 }
-
